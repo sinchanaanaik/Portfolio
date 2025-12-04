@@ -1,0 +1,39 @@
+{
+  "certifications": [
+    {
+      "title": "CS50x — Computer Science",
+      "issuer": "Harvard University (edX)",
+      "date": "2024",
+      "link": "/SinchanaCV.pdf"
+    },
+    {
+      "title": "Big Data 101 & Hadoop 101",
+      "issuer": "IBM Cognitive Class",
+      "date": "2023",
+      "link": "/SinchanaCV.pdf"
+    },
+    {
+      "title": "Networking Basics",
+      "issuer": "Cisco Networking Academy",
+      "date": "2022",
+      "link": "/SinchanaCV.pdf"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "ACCS Finalist — Automatic Waste Segregation System",
+      "date": "2024",
+      "detail": "Reached ACCS finals with innovative smart waste segregation system."
+    },
+    {
+      "title": "Hack Summit 2025 — AI-Driven Scholarship System",
+      "date": "2025",
+      "detail": "AI-driven scholarship matching + auto-application filling platform."
+    },
+    {
+      "title": "Research Paper Presentation — 2025",
+      "date": "2025",
+      "detail": "Research paper on AI-driven scholarship recommendation systems."
+    }
+  ]
+}
