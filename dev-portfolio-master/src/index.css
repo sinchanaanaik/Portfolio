@@ -1,0 +1,42 @@
+/* === Force About visible: isolate, mask parent opacity, and ensure contrast === */
+.about-section {
+  position: relative !important;
+  z-index: 9999 !important;           /* render above overlays */
+  isolation: isolate !important;      /* prevent parent blend */
+  mix-blend-mode: normal !important;  /* avoid blending */
+  -webkit-text-fill-color: var(--text-color) !important;
+  color: var(--text-color) !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transition: none !important;
+  /* mask parent semi-transparency by giving the section a background
+     that matches the current theme. We also add a tiny padding so the
+     text does not stick to edges when background is applied. */
+  background: linear-gradient(var(--bg), var(--bg)) !important;
+  padding: 3rem 2rem !important;
+  border-radius: 6px !important;
+}
+
+/* headings / paragraphs */
+.about-section h1,
+.about-section h2,
+.about-section p,
+.about-section span,
+.about-section strong,
+.about-section .education-detail {
+  color: var(--text-color) !important;
+  -webkit-text-fill-color: var(--text-color) !important;
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  font-weight: 500 !important;
+}
+
+/* On light theme ensure the background is white (so text contrast is preserved) */
+body.light .about-section,
+body.theme-light .about-section,
+body[data-theme='light'] .about-section,
+.light-theme .about-section,
+html.light .about-section {
+  background: linear-gradient(#ffffff, #ffffff) !important;
+}
