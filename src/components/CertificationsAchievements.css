@@ -1,0 +1,33 @@
+.certs-achieve-section {
+  padding: 2rem 0;
+}
+
+.section-subtitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cert-card {
+  border-radius: 10px;
+  background: var(--card-background, #fff);
+  border: 1px solid var(--card-border, rgba(0, 0, 0, 0.06));
+}
+
+.achievement-item {
+  border-radius: 8px;
+  margin-bottom: 0.6rem;
+  padding: 0.85rem 1rem;
+  background: var(--card-background, #fff);
+  border: 1px solid var(--card-border, rgba(0, 0, 0, 0.06));
+}
+
+.achievement-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.achievement-detail {
+  color: var(--muted);
+  margin-top: 0.35rem;
+}

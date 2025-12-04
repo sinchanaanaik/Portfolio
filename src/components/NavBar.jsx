@@ -1,0 +1,158 @@
+// src/components/NavBar.jsx
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import React, { useEffect, useState, useContext } from 'react';
+import { withRouter } from 'react-router';
+import { NavLink } from 'react-router-dom';
+import styled, { ThemeContext } from 'styled-components';
+import endpoints from '../constants/endpoints';
+import ThemeToggler from './ThemeToggler';
+
+const ExternalNavLink = styled.a`
+  color: ${(props) => props.theme.navbarTheme.linkColor};
+  &:hover {
+    color: ${(props) => props.theme.navbarTheme.linkHoverColor};
+  }
+  &::after {
+    background-color: ${(props) => props.theme.accentColor};
+  }
+`;
+
+const InternalNavLink = styled(NavLink)`
+  color: ${(props) => props.theme.navbarTheme.linkColor};
+  &:hover {
+    color: ${(props) => props.theme.navbarTheme.linkHoverColor};
+  }
+  &::after {
+    background-color: ${(props) => props.theme.accentColor};
+  }
+  &.navbar__link--active {
+    color: ${(props) => props.theme.navbarTheme.linkActiveColor};
+  }
+`;
+
+const NavBar = () => {
+  const theme = useContext(ThemeContext);
+  const [data, setData] = useState(null);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    fetch(endpoints.navbar, { method: 'GET' })
+      .then((res) => res.json())
+      .then((res) => setData(res))
+      .catch(() => {});
+  }, []);
+
+  /**
+   * Build the final sections array to render:
+   *  - Start from fetched data.sections (if any)
+   *  - Filter out Education / Experience / Resume
+   *  - Append Certifications and Contact (if not already present)
+   *
+   * NOTE: Achievements is intentionally NOT added here.
+   */
+  const getSectionsToRender = () => {
+    const original = data?.sections || [];
+
+    // filter out unwanted titles (case-insensitive)
+    const filtered = original.filter((s) => {
+      if (!s || !s.title) return false;
+      const t = s.title.toString().trim().toLowerCase();
+      return !(
+        t === 'education' || t === 'experience' || t === 'resume'
+      );
+    });
+
+    // helper to check if a title exists already
+    const hasTitle = (title) => filtered.some(
+      (s) => s && s.title && s.title.toLowerCase() === title.toLowerCase(),
+    );
+
+    // sections we want to ensure exist (Achievements intentionally omitted)
+    const additional = [];
+
+    if (!hasTitle('Certifications')) {
+      additional.push({
+        title: 'Certifications',
+        type: 'internal',
+        href: '/certifications',
+      });
+    }
+
+    if (!hasTitle('Contact')) {
+      additional.push({
+        title: 'Contact',
+        type: 'internal',
+        href: '/contact',
+      });
+    }
+
+    return [...filtered, ...additional];
+  };
+
+  const sectionsToRender = getSectionsToRender();
+
+  return (
+    <Navbar
+      fixed="top"
+      expand="md"
+      bg="dark"
+      variant="dark"
+      className="navbar-custom"
+      expanded={expanded}
+    >
+      <Container>
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          onClick={() => setExpanded(!expanded)}
+        />
+
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto" />
+
+          <Nav>
+            {sectionsToRender.map((section, index) => {
+              // defensive: ensure section exists
+              if (!section || !section.title) return null;
+
+              // treat 'link' as external, otherwise as internal
+              if (section.type === 'link') {
+                return (
+                  <ExternalNavLink
+                    key={section.title}
+                    href={section.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setExpanded(false)}
+                    className="navbar__link"
+                    theme={theme}
+                  >
+                    {section.title}
+                  </ExternalNavLink>
+                );
+              }
+
+              // default internal link
+              return (
+                <InternalNavLink
+                  key={section.title}
+                  onClick={() => setExpanded(false)}
+                  exact={index === 0}
+                  activeClassName="navbar__link--active"
+                  className="navbar__link"
+                  to={section.href}
+                  theme={theme}
+                >
+                  {section.title}
+                </InternalNavLink>
+              );
+            })}
+          </Nav>
+
+          <ThemeToggler onClick={() => setExpanded(false)} />
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
+
+export default withRouter(NavBar);

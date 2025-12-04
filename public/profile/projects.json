@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "image": "images/projects/ai-brain-tumour.jpg",
+      "title": "Brain Tumor Detection Using Swin Transformer",
+      "bodyText": "A deep learning system that detects brain tumors from MRI scans using Swin Transformer architecture and Grad CAM for visual explanation. Designed to assist radiologists with reliable tumor localization.",
+      "links": [],
+      "tags": ["AI/ML", "Deep Learning", "Computer Vision"]
+    },
+    {
+      "image": "images/projects/blockchain.jpg",
+      "title": "Blockchain-Based Voting System",
+      "bodyText": "A secure and transparent e voting platform using blockchain smart contracts to eliminate tampering and ensure integrity. Includes voter authentication, encrypted vote casting, and immutable ledger storage.",
+      "links": [],
+      "tags": ["Blockchain", "Smart Contracts", "Web App"]
+    },
+    {
+      "image": "images/projects/wastee.jpg",
+      "title": "Automatic Waste Segregation System",
+      "bodyText": "An automated system that classifies and segregates waste using embedded sensors and microcontrollers. Selected as an ACCS Finalist and designed for smart waste management in urban environments.",
+      "links": [],
+      "tags": ["Embedded Systems", "IoT", "Automation"]
+    },
+    {
+      "image": "images/projects/scholarship.jpg",
+      "title": "AI-Driven Scholarship System (Hackathon)",
+      "bodyText": "Built during Hack Summit 2025 - an AI driven scholarship recommendation and auto form filling platform that matches students with suitable scholarships and assists in application completion.",
+      "links": [],
+      "tags": ["AI", "Hackathon", "Automation"]
+    },
+    {
+      "image": "images/projects/women.jpg",
+      "title": "Women Safety Tracking System",
+      "bodyText": "A safety tracking system that sends real time location, emergency alerts, and continuous tracking to trusted contacts. Designed for rapid response during unsafe situations.",
+      "links": [],
+      "tags": ["IoT", "GPS", "Safety"]
+    }
+  ]
+}
