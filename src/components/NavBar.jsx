@@ -1,28 +1,22 @@
 // src/components/NavBar.jsx
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, Container } from 'react-bootstrap';
 import React, { useEffect, useState, useContext } from 'react';
-import { withRouter } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { NavLink, withRouter } from 'react-router-dom';
 import styled, { ThemeContext } from 'styled-components';
 import endpoints from '../constants/endpoints';
 
-/* ===== Styled Links with Proper Spacing ===== */
+/* ===== Styled Links ===== */
 
 const ExternalNavLink = styled.a`
   margin-left: 18px;
   padding: 6px 0;
   font-weight: 500;
   text-decoration: none;
-
   color: ${(props) => props.theme.navbarTheme.linkColor};
 
   &:hover {
     color: ${(props) => props.theme.navbarTheme.linkHoverColor};
-  }
-
-  &::after {
-    background-color: ${(props) => props.theme.accentColor};
   }
 `;
 
@@ -31,15 +25,10 @@ const InternalNavLink = styled(NavLink)`
   padding: 6px 0;
   font-weight: 500;
   text-decoration: none;
-
   color: ${(props) => props.theme.navbarTheme.linkColor};
 
   &:hover {
     color: ${(props) => props.theme.navbarTheme.linkHoverColor};
-  }
-
-  &::after {
-    background-color: ${(props) => props.theme.accentColor};
   }
 
   &.navbar__link--active {
@@ -72,10 +61,12 @@ const NavBar = () => {
       );
     });
 
-    const hasTitle = (title) =>
-      filtered.some(
-        (s) => s && s.title && s.title.toLowerCase() === title.toLowerCase(),
-      );
+    // ✅ ESLint-safe arrow function
+    const hasTitle = (title) => filtered.some(
+      (s) => s
+        && s.title
+        && s.title.toLowerCase() === title.toLowerCase(),
+    );
 
     const additional = [];
 
@@ -106,7 +97,6 @@ const NavBar = () => {
       expand="md"
       bg="dark"
       variant="dark"
-      className="navbar-custom"
       expanded={expanded}
     >
       <Container>
@@ -140,10 +130,10 @@ const NavBar = () => {
               return (
                 <InternalNavLink
                   key={section.title}
-                  onClick={() => setExpanded(false)}
+                  to={section.href}
                   exact={index === 0}
                   activeClassName="navbar__link--active"
-                  to={section.href}
+                  onClick={() => setExpanded(false)}
                   theme={theme}
                 >
                   {section.title}
