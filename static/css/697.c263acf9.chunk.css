@@ -1,0 +1,2 @@
+.about-section{display:flex;justify-content:center;padding-bottom:3rem;padding-top:6.5rem}.about-grid{grid-gap:4rem;display:grid;gap:4rem;grid-template-columns:1fr 1fr;max-width:1100px;width:100%}.about-left h1,.about-right h1{margin-bottom:1.5rem}.about-left p{line-height:1.75;margin-bottom:1rem}.education-item{margin-bottom:1.5rem}@media (max-width:900px){.about-grid{gap:2.5rem;grid-template-columns:1fr}}
+/*# sourceMappingURL=697.c263acf9.chunk.css.map*/
