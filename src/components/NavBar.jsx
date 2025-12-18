@@ -7,24 +7,41 @@ import { NavLink } from 'react-router-dom';
 import styled, { ThemeContext } from 'styled-components';
 import endpoints from '../constants/endpoints';
 
+/* ===== Styled Links with Proper Spacing ===== */
+
 const ExternalNavLink = styled.a`
+  margin-left: 18px;
+  padding: 6px 0;
+  font-weight: 500;
+  text-decoration: none;
+
   color: ${(props) => props.theme.navbarTheme.linkColor};
+
   &:hover {
     color: ${(props) => props.theme.navbarTheme.linkHoverColor};
   }
+
   &::after {
     background-color: ${(props) => props.theme.accentColor};
   }
 `;
 
 const InternalNavLink = styled(NavLink)`
+  margin-left: 18px;
+  padding: 6px 0;
+  font-weight: 500;
+  text-decoration: none;
+
   color: ${(props) => props.theme.navbarTheme.linkColor};
+
   &:hover {
     color: ${(props) => props.theme.navbarTheme.linkHoverColor};
   }
+
   &::after {
     background-color: ${(props) => props.theme.accentColor};
   }
+
   &.navbar__link--active {
     color: ${(props) => props.theme.navbarTheme.linkActiveColor};
   }
@@ -42,32 +59,24 @@ const NavBar = () => {
       .catch(() => {});
   }, []);
 
-  /**
-   * Build the final sections array to render:
-   *  - Start from fetched data.sections (if any)
-   *  - Filter out Education / Experience / Resume
-   *  - Append Certifications and Contact (if not already present)
-   *
-   * NOTE: Achievements is intentionally NOT added here.
-   */
   const getSectionsToRender = () => {
     const original = data?.sections || [];
 
-    // filter out unwanted titles (case-insensitive)
     const filtered = original.filter((s) => {
       if (!s || !s.title) return false;
       const t = s.title.toString().trim().toLowerCase();
       return !(
-        t === 'education' || t === 'experience' || t === 'resume'
+        t === 'education'
+        || t === 'experience'
+        || t === 'resume'
       );
     });
 
-    // helper to check if a title exists already
-    const hasTitle = (title) => filtered.some(
-      (s) => s && s.title && s.title.toLowerCase() === title.toLowerCase(),
-    );
+    const hasTitle = (title) =>
+      filtered.some(
+        (s) => s && s.title && s.title.toLowerCase() === title.toLowerCase(),
+      );
 
-    // sections we want to ensure exist (Achievements intentionally omitted)
     const additional = [];
 
     if (!hasTitle('Certifications')) {
@@ -111,10 +120,8 @@ const NavBar = () => {
 
           <Nav>
             {sectionsToRender.map((section, index) => {
-              // defensive: ensure section exists
               if (!section || !section.title) return null;
 
-              // treat 'link' as external, otherwise as internal
               if (section.type === 'link') {
                 return (
                   <ExternalNavLink
@@ -123,7 +130,6 @@ const NavBar = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setExpanded(false)}
-                    className="navbar__link"
                     theme={theme}
                   >
                     {section.title}
@@ -131,14 +137,12 @@ const NavBar = () => {
                 );
               }
 
-              // default internal link
               return (
                 <InternalNavLink
                   key={section.title}
                   onClick={() => setExpanded(false)}
                   exact={index === 0}
                   activeClassName="navbar__link--active"
-                  className="navbar__link"
                   to={section.href}
                   theme={theme}
                 >
