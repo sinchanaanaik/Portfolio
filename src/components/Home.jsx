@@ -30,6 +30,7 @@ const styles = {
     objectFit: 'cover',
     marginBottom: '20px',
     border: '3px solid var(--text-color)',
+    backgroundColor: '#181818',
   },
 };
 
@@ -48,7 +49,7 @@ export default function Home() {
       <div style={styles.mainContainer} className="home-section">
         {/* Profile Photo */}
         <img
-          src="/images/profile-pic.jpg"
+          src={`${process.env.PUBLIC_URL}/images/profile-pic.jpg`}
           alt="Profile"
           style={styles.profileImage}
         />
@@ -99,9 +100,13 @@ export default function Home() {
           }}
         >
           <a
-            href={data.resume || '/profile/resume.pdf'}
+            href={
+              data.resume
+              || `${process.env.PUBLIC_URL}/profile/resume.pdf`
+            }
             target="_blank"
             rel="noreferrer"
+            download
             style={{
               border: '1px solid var(--card-border)',
               color: 'var(--text-color)',
