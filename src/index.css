@@ -40,3 +40,31 @@ body[data-theme='light'] .about-section,
 html.light .about-section {
   background: linear-gradient(#ffffff, #ffffff) !important;
 }
+/* ===== Global Layout System ===== */
+
+.layout-root {
+  min-height: 100vh;
+  background-color: var(--bg, #0f0f10);
+  display: flex;
+  justify-content: center;
+}
+
+.layout-container {
+  width: 100%;
+  max-width: 1100px;
+  padding: 2rem 1.25rem;
+  box-sizing: border-box;
+}
+
+/* Navbar offset so content doesn't hide behind it */
+.main {
+  padding-top: 80px;
+}
+
+/* Normalize page spacing */
+section,
+main,
+.page-section {
+  margin: 0;
+  padding: 0;
+}

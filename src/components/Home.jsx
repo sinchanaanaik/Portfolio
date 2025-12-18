@@ -1,4 +1,3 @@
-// src/components/Home.jsx
 import React, { useEffect, useState } from 'react';
 import Typewriter from 'typewriter-effect';
 import Fade from 'react-reveal';
@@ -16,12 +15,12 @@ const styles = {
     display: 'inline-block',
   },
   mainContainer: {
-    height: '100%',
     minHeight: '90vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: '4rem', // avoids navbar overlap
   },
   profileImage: {
     width: '180px',
@@ -44,10 +43,14 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
-  return data ? (
+  if (!data) {
+    return <FallbackSpinner />;
+  }
+
+  return (
     <Fade>
       <div style={styles.mainContainer} className="home-section">
-        {/* Profile Photo */}
+        {/* Profile Image */}
         <img
           src={`${process.env.PUBLIC_URL}/images/profile-pic.jpg`}
           alt="Profile"
@@ -60,16 +63,16 @@ export default function Home() {
         {/* Roles */}
         <div
           style={{
-            flexDirection: 'row',
-            fontSize: '1.6em',
             display: 'flex',
+            fontSize: '1.6em',
+            marginBottom: '0.5rem',
           }}
         >
           <h2 style={styles.inlineChild}>I&apos;m&nbsp;</h2>
           <Typewriter
             options={{
-              loop: true,
               autoStart: true,
+              loop: true,
               strings: data.roles || [
                 'Full Stack Developer',
                 'AI/ML Engineer',
@@ -78,13 +81,14 @@ export default function Home() {
           />
         </div>
 
-        {/* Short description */}
+        {/* Description */}
         <p
           style={{
             marginTop: 16,
             maxWidth: 720,
             textAlign: 'center',
             color: 'var(--muted)',
+            lineHeight: 1.6,
           }}
         >
           {data.short_description}
@@ -93,17 +97,14 @@ export default function Home() {
         {/* Resume + Social */}
         <div
           style={{
-            marginTop: 20,
+            marginTop: 24,
             display: 'flex',
             gap: 16,
             alignItems: 'center',
           }}
         >
           <a
-            href={
-              data.resume
-              || `${process.env.PUBLIC_URL}/profile/resume.pdf`
-            }
+            href={`${process.env.PUBLIC_URL}/profile/resume.pdf`}
             target="_blank"
             rel="noreferrer"
             download
@@ -123,7 +124,5 @@ export default function Home() {
         </div>
       </div>
     </Fade>
-  ) : (
-    <FallbackSpinner />
   );
 }
